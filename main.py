@@ -80,13 +80,14 @@ def ticket_max_min(clientes, maximo = True):
     else:
         valor_minimo = reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_minimo]
-def dados_estatisticos(clientes:dict, agregador:str ,valor):
+def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'):
     # Aqui precisa ter:
     # Média, moda e mediana
     # map, filter e reduce
     # Usar List comprehension
     # Salvar como CSV
-    pass
+    lista_agregador = list(set(clientes[agregador]))
+    print(lista_agregador)
 
 
 clientes = ler_json()
@@ -97,4 +98,5 @@ clientes = ler_json()
 # buscar_cliente(clientes)
 # atualizar_cliente(clientes)
 # deletar_cliente(clientes)
-print(ticket_max_min(clientes, maximo=False))
+# print(ticket_max_min(clientes, maximo=False))
+dados_estatisticos(clientes, agregador='sexo' ,agregado='idade')
