@@ -74,12 +74,12 @@ def deletar_cliente(clientes):
 
 
 def ticket_max_min(clientes, maximo = True):
-    # Falta fazer lógica da lista de tuplas para valores iguais
     if maximo:
-        return reduce(lambda x,y: x if x > y else y , clientes['valor_compra'],clientes['valor_compra'][0])
+        valor_maximo = reduce(lambda x,y: x if x > y else y , clientes['valor_compra'],clientes['valor_compra'][0])
+        return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_maximo]
     else:
-        return reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
-
+        valor_minimo = reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
+        return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_minimo]
 def dados_estatisticos(clientes:dict, agregador:str ,valor):
     # Aqui precisa ter:
     # Média, moda e mediana
@@ -97,4 +97,4 @@ clientes = ler_json()
 # buscar_cliente(clientes)
 # atualizar_cliente(clientes)
 # deletar_cliente(clientes)
-# print(ticket_max_min(clientes))
+print(ticket_max_min(clientes, maximo=False))
