@@ -83,11 +83,44 @@ def ticket_max_min(clientes, maximo = True):
 def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'):
     # Aqui precisa ter:
     # Média, moda e mediana
-    # map, filter e reduce
-    # Usar List comprehension
     # Salvar como CSV
     lista_agregador = list(set(clientes[agregador]))
-    print(lista_agregador)
+    lista_de_clientes = []
+    dicionario_agregado = {}
+    lista_agregada =[]
+    for indice in range(len(clientes['ID_Cliente'])):
+        lista_intermediaria = []
+        for chave in clientes:
+            lista_intermediaria.append(clientes[chave][indice])
+        lista_de_clientes.append(lista_intermediaria)
+    for item in lista_agregador:
+        lista_agregada = list(map(lambda x :x [list(clientes.keys()).index(agregado)],(filter(lambda x:item in x,lista_de_clientes))))
+        dicionario_agregado[item] = lista_agregada
+    media =  calcula_media(dicionario_agregado)
+    moda =  calcula_moda(dicionario_agregado)
+    mediana = calcula_mediana(dicionario_agregado)  
+    
+    with open('Dados_Estatisticos.csv', 'w') as arq:
+        arq.write(f'media; moda; mediana\n{media}; {moda}; {mediana}')
+def calcula_media(dicionario_agregado):
+    return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
+
+def calcula_moda(dicionario_agregado):
+    print(dicionario_agregado)
+    dicionario_moda={}
+    for i in dicionario_agregado:
+        for j in dicionario_agregado[i]:
+            if j not in dicionario_moda:
+                dicionario_moda[j]= 1 
+            else:
+                dicionario_moda[j] += 1
+            # FALTA CONTINUAR
+    print(dicionario_moda)
+def calcula_mediana(dicionario_agregado):
+    
+    return  {chave:(sorted(dicionario_agregado[chave])[len(dicionario_agregado[chave]) // 2] +                             \
+                     sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
+                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0}
 
 
 clientes = ler_json()
@@ -99,4 +132,4 @@ clientes = ler_json()
 # atualizar_cliente(clientes)
 # deletar_cliente(clientes)
 # print(ticket_max_min(clientes, maximo=False))
-dados_estatisticos(clientes, agregador='sexo' ,agregado='idade')
+dados_estatisticos(clientes, agregador='estado' ,agregado='valor_compra')
