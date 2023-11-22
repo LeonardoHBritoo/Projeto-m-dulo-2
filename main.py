@@ -106,23 +106,25 @@ def calcula_media(dicionario_agregado):
     return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
 
 def calcula_moda(dicionario_agregado):
-    print(dicionario_agregado)
-    dicionario_moda={}
     for i in dicionario_agregado:
+        dicionario_moda = {}
         for j in dicionario_agregado[i]:
             if j not in dicionario_moda:
                 dicionario_moda[j]= 1 
             else:
                 dicionario_moda[j] += 1
-        print(max([x for x in dicionario_moda.values()]))
-        #dicionario_agregado[i] = max([[x] for x in dicionario_moda.values()])
-    print(dicionario_agregado)
-    print(dicionario_moda.values())
-def calcula_mediana(dicionario_agregado):
+        dicionario_agregado[i] = list(max(list(dicionario_moda.items())))[0]
+        return dicionario_agregado
+        
     
+def calcula_mediana(dicionario_agregado):
+    for chave in dicionario_agregado:
+        if not isinstance(dicionario_agregado[chave],list):
+            dicionario_agregado[chave] = list([dicionario_agregado[chave]])
+    #Falta verificar se o cada valor realmente é uma lista
     return  {chave:(sorted(dicionario_agregado[chave])[len(dicionario_agregado[chave]) // 2] +                             \
-                     sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
-                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0}
+                    sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
+                    2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0 }
 
 
 clientes = ler_json()
