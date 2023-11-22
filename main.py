@@ -114,8 +114,10 @@ def calcula_moda(dicionario_agregado):
                 dicionario_moda[j]= 1 
             else:
                 dicionario_moda[j] += 1
-            # FALTA CONTINUAR
-    print(dicionario_moda)
+        print(max([x for x in dicionario_moda.values()]))
+        #dicionario_agregado[i] = max([[x] for x in dicionario_moda.values()])
+    print(dicionario_agregado)
+    print(dicionario_moda.values())
 def calcula_mediana(dicionario_agregado):
     
     return  {chave:(sorted(dicionario_agregado[chave])[len(dicionario_agregado[chave]) // 2] +                             \
