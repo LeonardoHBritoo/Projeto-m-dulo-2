@@ -2,6 +2,7 @@ import json
 from functools import reduce
 import time
 import requests
+import os
 def Buscar_dados_API():
     dicionario = { 
                 "ID_Cliente":[],
@@ -147,7 +148,8 @@ def main():
     entrada = 'inicio'
     while entrada:
         if entrada != 'inicio':
-            time.sleep(1.5)
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
         entrada = input(""" Escolha uma das operações:
                             1) Adicionar cliente
                             2) Listar clientes
@@ -184,8 +186,8 @@ def main():
             else:
                 print('Entrada inválida')
         elif entrada=='7':
-           agregador = input('Digite o valor agregador')
-           agregado = input('Digite o valor agregado')
+           agregador = input('Digite o valor agregador ')
+           agregado = input('Digite o valor agregado ')
            dados_estatisticos(clientes, agregador ,agregado)
         elif entrada=='0':
             print('Programa encerrado')
@@ -193,9 +195,4 @@ def main():
         else:
             print('Valor digitado é inválido')
         
-        
-
-
-
-
 main()
