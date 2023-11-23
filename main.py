@@ -127,7 +127,6 @@ def calcula_mediana(dicionario_agregado):
 clientes = ler_json()
 
 # clientes = adicionar_cliente(clientes)
-# print(clientes)
 # listar_clientes(clientes)
 # buscar_cliente(clientes)
 # atualizar_cliente(clientes)
