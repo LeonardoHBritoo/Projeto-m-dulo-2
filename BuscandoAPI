@@ -1,15 +1,9 @@
+# Aqui apenas testando como funciona a lógica dessa API
 import requests
-
-# URL da sua API
-url = 'http://localhost:3000/ID_Cliente'  # Substitua pelo endpoint correto da sua API
-# Fazendo a requisição GET
+url = 'http://localhost:3000/ID_Cliente'
 response = requests.get(url)
-# Verificando se a requisição foi bem-sucedida (código de status 200)
 if response.status_code == 200:
-    # Extraindo os dados da resposta JSON
     data = response.json()    
-    # Imprimindo os dados
     print(data)
 else:
-    # Imprimindo uma mensagem de erro caso a requisição não tenha sido bem-sucedida
     print(f'Erro na requisição. Código de status: {response.status_code}')

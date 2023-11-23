@@ -13,7 +13,8 @@ def Buscar_dados_API():
              }
     for i in dicionario:
         dicionario[i] = requests.get(f'http://localhost:3000/{i}').json()
-    
+    with open('Teste.json', 'w') as arq:
+        arq.write(json.dumps(dicionario))
 def ler_json():
     try:
          with open('Teste.json', 'r') as arquivo:
@@ -141,6 +142,7 @@ def calcula_mediana(dicionario_agregado):
                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0 }
 
 def main():
+    Buscar_dados_API()
     clientes = ler_json()
     entrada = 'inicio'
     while entrada:
@@ -197,4 +199,3 @@ def main():
 
 
 main()
-#Buscar_dados_API()
