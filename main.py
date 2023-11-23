@@ -81,9 +81,7 @@ def ticket_max_min(clientes, maximo = True):
         valor_minimo = reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_minimo]
 def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'):
-    # Aqui precisa ter:
-    # Média, moda e mediana
-    # Salvar como CSV
+
     lista_agregador = list(set(clientes[agregador]))
     lista_de_clientes = []
     dicionario_agregado = {}
@@ -121,7 +119,6 @@ def calcula_mediana(dicionario_agregado):
     for chave in dicionario_agregado:
         if not isinstance(dicionario_agregado[chave],list):
             dicionario_agregado[chave] = list([dicionario_agregado[chave]])
-    #Falta verificar se o cada valor realmente é uma lista
     return  {chave:(sorted(dicionario_agregado[chave])[len(dicionario_agregado[chave]) // 2] +                             \
                     sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0 }
@@ -136,4 +133,4 @@ clientes = ler_json()
 # atualizar_cliente(clientes)
 # deletar_cliente(clientes)
 # print(ticket_max_min(clientes, maximo=False))
-dados_estatisticos(clientes, agregador='estado' ,agregado='valor_compra')
+# dados_estatisticos(clientes, agregador='estado' ,agregado='valor_compra')
