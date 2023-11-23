@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+import time
 def ler_json():
     try:
          with open('Teste.json', 'r') as arquivo:
@@ -18,6 +19,7 @@ def adicionar_cliente(clientes):
         clientes['valor_compra'].append(float(input('Digite o valor_compra: ')))
         with open('Teste.json', 'w') as arquivo:
             arquivo.write(json.dumps(clientes))
+        print('Operação concluída')
         return clientes
     except TypeError:
         print('Uma das entradas foi de tipo errado, dados não registrados')
@@ -37,10 +39,10 @@ def buscar_cliente(clientes):
     indice = clientes['ID_Cliente'].index(id_buscado)# Repete, então talvez criar função
     for chave in clientes:
         print(clientes[chave][indice], end='  ')
+    print()
    except ValueError:
        print('Cliente não encontrado')
        
-
 def atualizar_cliente(clientes):
     try:
         listar_clientes(clientes)
@@ -57,9 +59,11 @@ def atualizar_cliente(clientes):
         clientes[chave][indice] = alteracao
         with open('Teste.json','w') as arquivo:
             arquivo.write(json.dumps(clientes))
+        print('Operação concluída')
         return clientes
     except ValueError:    
         print('Cliente não cadastrado')
+
 def deletar_cliente(clientes):
     try:
         listar_clientes(clientes)
@@ -67,7 +71,7 @@ def deletar_cliente(clientes):
         indice = clientes['ID_Cliente'].index(id)
         for i in clientes:
             clientes[i].pop(indice)
-        listar_clientes(clientes)
+        print('Operação concluída')
         return clientes
     except ValueError:
         print('Cliente não está presente na base')
@@ -123,13 +127,60 @@ def calcula_mediana(dicionario_agregado):
                     sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0 }
 
+def main():
+    clientes = ler_json()
+    entrada = 'inicio'
+    while entrada:
+        if entrada != 'inicio':
+            time.sleep(1.5)
+        entrada = input(""" Escolha uma das operações:
+                            1) Adicionar cliente
+                            2) Listar clientes
+                            3) Buscar cliente
+                            4) Atualizar cliente
+                            5) Deletar cliente
+                            6) Ticket mínimo ou máximo entre os clientes
+                            7) Dados estatísticos 
+                            0) Sair
+                        * Digite o número correspondente:
+        """)
+        
+        if  entrada=='1' :
+            clientes = adicionar_cliente(clientes)
+        elif entrada=='2':
+            listar_clientes(clientes)
+        elif entrada=='3':
+            buscar_cliente(clientes)
+        elif entrada=='4':
+            clientes = atualizar_cliente(clientes)
+        elif entrada=='5':
+            clientes = deletar_cliente(clientes)
+        elif entrada=='6':
+            resposta = input("""
+                  Escolha o ticket que deseja obter:
+                    1) Máximo
+                    2) Mínimo
 
-clientes = ler_json()
+                  """)
+            if resposta == '1':
+                ticket_max_min(clientes, maximo=True)
+            elif resposta =='2':
+                ticket_max_min(clientes, maximo=False)
+            else:
+                print('Entrada inválida')
+        elif entrada=='7':
+           agregador = input('Digite o valor agregador')
+           agregado = input('Digite o valor agregado')
+           dados_estatisticos(clientes, agregador ,agregado)
+        elif entrada=='0':
+            print('Programa encerrado')
+            entrada = ''
+        else:
+            print('Valor digitado é inválido')
+        
+        
 
-# clientes = adicionar_cliente(clientes)
-# listar_clientes(clientes)
-# buscar_cliente(clientes)
-# atualizar_cliente(clientes)
-# deletar_cliente(clientes)
-# print(ticket_max_min(clientes, maximo=False))
-# dados_estatisticos(clientes, agregador='estado' ,agregado='valor_compra')
+
+
+
+main()
