@@ -38,7 +38,7 @@ def listar_clientes(clientes):
 def buscar_cliente(clientes):
    try:
     id_buscado = int(input('Digite o ID do cliente '))
-    indice = clientes['ID_Cliente'].index(id_buscado)# Repete, então talvez criar função
+    indice = clientes['ID_Cliente'].index(id_buscado)
     for chave in clientes:
         print(clientes[chave][indice], end='  ')
     print()
@@ -49,7 +49,7 @@ def atualizar_cliente(clientes):
     try:
         listar_clientes(clientes)
         id = int(input('Digite o ID do cliente que deseja atualizar '))
-        indice = clientes['ID_Cliente'].index(id) # Repete, então talvez criar função
+        indice = clientes['ID_Cliente'].index(id) 
         dicionario_chaves = {i:j for i,j in zip(range(len(clientes.keys())),clientes.keys())}
         dicionario_chaves.pop(0)
         chave = dicionario_chaves[int(input(f'O que deseja alterar?\n{dicionario_chaves}\n'))]
@@ -103,9 +103,13 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
     media =  calcula_media(dicionario_agregado)
     moda =  calcula_moda(dicionario_agregado)
     mediana = calcula_mediana(dicionario_agregado)  
-    
+    string = f'{agregador}, media, moda, mediana\n'
+    for item in lista_agregador:
+        string+=f'{item}, {media[item]}, {moda[item]}, {mediana[item]}\n'
     with open('Dados_Estatisticos.csv', 'w') as arq:
-        arq.write(f'media; moda; mediana\n{media}; {moda}; {mediana}')
+        arq.write(string)
+    print('Arquivo csv com os dados estatísticos foi gerado')
+
 def calcula_media(dicionario_agregado):
     return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
 
