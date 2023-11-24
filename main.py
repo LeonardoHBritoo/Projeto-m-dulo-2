@@ -1,9 +1,14 @@
+# Importando bibliotecas necessárias
 import json
 from functools import reduce
 import time
 import os
 from buscandoapi import Buscar_dados_API
-def ler_json():
+def ler_json() -> None:
+    '''
+    Busca os dados do arquivo Json adquirido através da API
+    
+    '''
     try:
          with open('Teste.json', 'r') as arquivo:
             dados_json = json.load(arquivo)
@@ -11,7 +16,10 @@ def ler_json():
     except FileNotFoundError:
         print('Arquivo de inicial não encontrado')
 
-def adicionar_cliente(clientes:dict):
+def adicionar_cliente(clientes:dict) -> dict:
+    '''
+    Adiciona informações a Base, salvando em arquivo Json
+    '''
     try:
         clientes['ID_Cliente'].append(clientes['ID_Cliente'][-1]+1) # Incremento automático do id
         clientes['idade'].append(int(input('Digite a idade: ')))
@@ -26,16 +34,22 @@ def adicionar_cliente(clientes:dict):
     except TypeError:
         print('Uma das entradas foi de tipo errado, dados não registrados')
 
-def listar_clientes(clientes:dict):
+def listar_clientes(clientes:dict) -> None:
+    '''
+    Lista os clientes da Base 
+    '''
     try:
-        for iteracao in range(len(clientes['ID_Cliente'])):
+        for iteracao in range(len(clientes['ID_Cliente'])): # Acha o tamanho da lista de clientes com base no ID
             for chave in clientes:
                 print(f'{chave} : {clientes[chave][iteracao]}',end='  ')
             print()
     except TypeError:
         print('Base de dados não encontrada')
 
-def buscar_cliente(clientes:dict):
+def buscar_cliente(clientes:dict) -> dict:
+   '''
+   Busca clientes com base no ID 
+   '''
    try:
     id_buscado = int(input('Digite o ID do cliente '))
     indice = clientes['ID_Cliente'].index(id_buscado)
@@ -45,7 +59,10 @@ def buscar_cliente(clientes:dict):
    except ValueError:
        print('Cliente não encontrado')
        
-def atualizar_cliente(clientes:dict):
+def atualizar_cliente(clientes:dict) -> dict:
+    '''
+    Atualiza um cliente da base de dados e salva em arquivo Json com informações mais recentes
+    '''
     try:
         listar_clientes(clientes)
         id = int(input('Digite o ID do cliente que deseja atualizar '))
@@ -54,9 +71,9 @@ def atualizar_cliente(clientes:dict):
         dicionario_chaves.pop(0)
         chave = dicionario_chaves[int(input(f'O que deseja alterar?\n{dicionario_chaves}\n'))]
         alteracao = input(f'Digite o novo valor de {chave} ')
-        if type(clientes[chave][-1]) == int:
+        if type(clientes[chave][-1]) == int: # Verifica tipo do elemento anterior para coerção do input
             alteracao = int(alteracao)
-        if type(clientes[chave][-1]) == float:
+        if type(clientes[chave][-1]) == float:# Verifica tipo do elemento anterior para coerção do input
             alteracao = float(alteracao)
         clientes[chave][indice] = alteracao
         with open('Teste.json','w') as arquivo:
@@ -66,7 +83,10 @@ def atualizar_cliente(clientes:dict):
     except ValueError:    
         print('Cliente não cadastrado')
 
-def deletar_cliente(clientes:dict):
+def deletar_cliente(clientes:dict) -> dict:
+    '''
+    Deleta um cliente a partir do ID e salva informações mais recentes na base
+    '''
     try:
         listar_clientes(clientes)
         id = int(input('Digite o ID do cliente que deseja deletar '))
@@ -81,7 +101,13 @@ def deletar_cliente(clientes:dict):
         print('Cliente não está presente na base')
 
 
-def ticket_max_min(clientes:dict, maximo:bool = True):
+def ticket_max_min(clientes:dict, maximo:bool = True) -> list:
+    '''
+    A função recebe a base de clientes e um booleano que indica qual operação deve ser realizada:
+    1)Buscar os maiores tickets
+    2)Buscar os menóres tickets
+    retorna os uma tupla de (ID_Cliente,valor_compra)
+    '''
     if maximo:
         valor_maximo = reduce(lambda x,y: x if x > y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_maximo]
@@ -89,8 +115,10 @@ def ticket_max_min(clientes:dict, maximo:bool = True):
         valor_minimo = reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_minimo]
     
-def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'):
-
+def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade') -> None:
+    '''
+    
+    '''
     lista_agregador = list(set(clientes[agregador]))
     lista_de_clientes = []
     dicionario_agregado = {}
@@ -136,7 +164,10 @@ def calcula_mediana(dicionario_agregado:dict):
                     sorted(dicionario_agregado[chave])[(len(dicionario_agregado[chave]) - 1) // 2])/                       \
                     2 for chave in dicionario_agregado if len(dicionario_agregado[chave]) > 0 }
 
-def main():
+def main()-> None:
+    '''
+    Função principal que inicializa todas as outras
+    '''
     Buscar_dados_API()
     clientes = ler_json()
     entrada = 'inicio'
