@@ -104,7 +104,7 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
     media =  calcula_media(dicionario_agregado)
     moda =  calcula_moda(dicionario_agregado)
     mediana = calcula_mediana(dicionario_agregado)  
-    string = f'{agregador}, media, moda, mediana\n'
+    string = f'{agregador}, media de {agregado}, moda de {agregado}, mediana de {agregado}\n'
     for item in lista_agregador:
         string+=f'{item}, {media[item]}, {moda[item][0]}, {mediana[item]}\n'
     with open('Dados_Estatisticos.csv', 'w') as arq:
@@ -185,5 +185,6 @@ def main():
             entrada = ''
         else:
             print('Valor digitado é inválido')
+            continue
         
 main()
