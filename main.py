@@ -105,7 +105,7 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
     mediana = calcula_mediana(dicionario_agregado)  
     string = f'{agregador}, media, moda, mediana\n'
     for item in lista_agregador:
-        string+=f'{item}, {media[item]}, {moda[item]}, {mediana[item]}\n'
+        string+=f'{item}, {media[item]}, {moda[item][0]}, {mediana[item]}\n'
     with open('Dados_Estatisticos.csv', 'w') as arq:
         arq.write(string)
     print('Arquivo csv com os dados estatísticos foi gerado')
@@ -122,9 +122,8 @@ def calcula_moda(dicionario_agregado):
             else:
                 dicionario_moda[j] += 1
         dicionario_agregado[i] = list(max(list(dicionario_moda.items())))[0]
-        return dicionario_agregado
+    return dicionario_agregado
         
-    
 def calcula_mediana(dicionario_agregado):
     for chave in dicionario_agregado:
         if not isinstance(dicionario_agregado[chave],list):
