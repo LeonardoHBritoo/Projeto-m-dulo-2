@@ -11,7 +11,7 @@ def ler_json():
     except FileNotFoundError:
         print('Arquivo de inicial não encontrado')
 
-def adicionar_cliente(clientes):
+def adicionar_cliente(clientes:dict):
     try:
         clientes['ID_Cliente'].append(clientes['ID_Cliente'][-1]+1) # Incremento automático do id
         clientes['idade'].append(int(input('Digite a idade: ')))
@@ -26,7 +26,7 @@ def adicionar_cliente(clientes):
     except TypeError:
         print('Uma das entradas foi de tipo errado, dados não registrados')
 
-def listar_clientes(clientes):
+def listar_clientes(clientes:dict):
     try:
         for iteracao in range(len(clientes['ID_Cliente'])):
             for chave in clientes:
@@ -35,7 +35,7 @@ def listar_clientes(clientes):
     except TypeError:
         print('Base de dados não encontrada')
 
-def buscar_cliente(clientes):
+def buscar_cliente(clientes:dict):
    try:
     id_buscado = int(input('Digite o ID do cliente '))
     indice = clientes['ID_Cliente'].index(id_buscado)
@@ -45,7 +45,7 @@ def buscar_cliente(clientes):
    except ValueError:
        print('Cliente não encontrado')
        
-def atualizar_cliente(clientes):
+def atualizar_cliente(clientes:dict):
     try:
         listar_clientes(clientes)
         id = int(input('Digite o ID do cliente que deseja atualizar '))
@@ -66,7 +66,7 @@ def atualizar_cliente(clientes):
     except ValueError:    
         print('Cliente não cadastrado')
 
-def deletar_cliente(clientes):
+def deletar_cliente(clientes:dict):
     try:
         listar_clientes(clientes)
         id = int(input('Digite o ID do cliente que deseja deletar '))
@@ -79,13 +79,14 @@ def deletar_cliente(clientes):
         print('Cliente não está presente na base')
 
 
-def ticket_max_min(clientes, maximo = True):
+def ticket_max_min(clientes:dict, maximo:bool = True):
     if maximo:
         valor_maximo = reduce(lambda x,y: x if x > y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_maximo]
     else:
         valor_minimo = reduce(lambda x,y: x if x < y else y , clientes['valor_compra'],clientes['valor_compra'][0])
         return [(i,j) for i,j in zip(clientes['ID_Cliente'],clientes['valor_compra']) if j == valor_minimo]
+    
 def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'):
 
     lista_agregador = list(set(clientes[agregador]))
@@ -110,10 +111,10 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
         arq.write(string)
     print('Arquivo csv com os dados estatísticos foi gerado')
 
-def calcula_media(dicionario_agregado):
+def calcula_media(dicionario_agregado:dict):
     return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
 
-def calcula_moda(dicionario_agregado):
+def calcula_moda(dicionario_agregado:dict):
     for i in dicionario_agregado:
         dicionario_moda = {}
         for j in dicionario_agregado[i]:
@@ -124,7 +125,7 @@ def calcula_moda(dicionario_agregado):
         dicionario_agregado[i] = list(max(list(dicionario_moda.items())))[0]
     return dicionario_agregado
         
-def calcula_mediana(dicionario_agregado):
+def calcula_mediana(dicionario_agregado:dict):
     for chave in dicionario_agregado:
         if not isinstance(dicionario_agregado[chave],list):
             dicionario_agregado[chave] = list([dicionario_agregado[chave]])
@@ -170,9 +171,9 @@ def main():
 
                   """)
             if resposta == '1':
-                ticket_max_min(clientes, maximo=True)
+                print(ticket_max_min(clientes, maximo=True))
             elif resposta =='2':
-                ticket_max_min(clientes, maximo=False)
+                print(ticket_max_min(clientes, maximo=False))
             else:
                 print('Entrada inválida')
         elif entrada=='7':
