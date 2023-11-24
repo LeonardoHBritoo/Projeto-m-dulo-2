@@ -74,6 +74,8 @@ def deletar_cliente(clientes:dict):
         for i in clientes:
             clientes[i].pop(indice)
         print('Operação concluída')
+        with open('Teste.json', 'w') as arquivo:
+            arquivo.write(json.dumps(clientes))
         return clientes
     except ValueError:
         print('Cliente não está presente na base')
@@ -107,6 +109,7 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
     string = f'{agregador}, media de {agregado}, moda de {agregado}, mediana de {agregado}\n'
     for item in lista_agregador:
         string+=f'{item}, {media[item]}, {moda[item][0]}, {mediana[item]}\n'
+    print(string)
     with open('Dados_Estatisticos.csv', 'w') as arq:
         arq.write(string)
     print('Arquivo csv com os dados estatísticos foi gerado')

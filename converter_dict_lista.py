@@ -1,6 +1,9 @@
-# Aqui temos uma função para converter a estrutura dos dados, caso necessário
-# De: dicionário de listas - Para: lista de dicionários
-def converter_dict_lista(dicionario):
+
+def converter_dict_lista(dicionario:dict):
+    '''
+    Função para converter a estrutura dos dados, caso necessário
+    De: dicionário de listas - Para: lista de dicionários
+    '''
     chaves = list(dicionario.keys())
     num_elementos = len(dicionario[chaves[0]])
     lista_de_dicionarios = []
