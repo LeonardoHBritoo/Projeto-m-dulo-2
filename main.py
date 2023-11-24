@@ -149,13 +149,13 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
 
 def calcula_media(dicionario_agregado:dict) -> dict:
     '''
-    Calcula a média de cada valor agregado 
+    Calcula a para cada chave do dicionário
     '''
     return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
 
 def calcula_moda(dicionario_agregado:dict) -> dict:
     '''
-    Calcula a moda de cada valor agregado 
+    Calcula a moda para cada chave do dicionário
     '''
     for i in dicionario_agregado:
         dicionario_moda = {}
@@ -169,7 +169,7 @@ def calcula_moda(dicionario_agregado:dict) -> dict:
         
 def calcula_mediana(dicionario_agregado:dict) -> dict:
     '''
-    Calcula a mediana de cada valor agregado 
+    Calcula a mediana para cada chave do dicionário
     '''
     for chave in dicionario_agregado:
         if not isinstance(dicionario_agregado[chave],list):
