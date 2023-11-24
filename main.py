@@ -104,8 +104,10 @@ def deletar_cliente(clientes:dict) -> dict:
 def ticket_max_min(clientes:dict, maximo:bool = True) -> list:
     '''
     A função recebe a base de clientes e um booleano que indica qual operação deve ser realizada:
+
     1)Buscar os maiores tickets
-    2)Buscar os menóres tickets
+    2)Buscar os menores tickets
+
     retorna os uma tupla de (ID_Cliente,valor_compra)
     '''
     if maximo:
@@ -117,7 +119,10 @@ def ticket_max_min(clientes:dict, maximo:bool = True) -> list:
     
 def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade') -> None:
     '''
-    
+    Recebe um a base, um valor agregador e um agregado e salva as estatísticas de média,moda e mediana em
+    um arquivo CSV que pode ser interpretado como uma tabela das estatísticas para o valor agregado pelo 
+    valor agregador.
+    exemplo: tabela de média,moda e mediana da idade (agregado) em relação ao sexo(agregador)
     '''
     lista_agregador = list(set(clientes[agregador]))
     lista_de_clientes = []
@@ -142,10 +147,16 @@ def dados_estatisticos(clientes:dict, agregador:str='sexo' ,agregado:str='idade'
         arq.write(string)
     print('Arquivo csv com os dados estatísticos foi gerado')
 
-def calcula_media(dicionario_agregado:dict):
+def calcula_media(dicionario_agregado:dict) -> dict:
+    '''
+    Calcula a média de cada valor agregado 
+    '''
     return {chave : sum(dicionario_agregado[chave])/len(dicionario_agregado[chave]) for chave in dicionario_agregado}
 
-def calcula_moda(dicionario_agregado:dict):
+def calcula_moda(dicionario_agregado:dict) -> dict:
+    '''
+    Calcula a moda de cada valor agregado 
+    '''
     for i in dicionario_agregado:
         dicionario_moda = {}
         for j in dicionario_agregado[i]:
@@ -156,7 +167,10 @@ def calcula_moda(dicionario_agregado:dict):
         dicionario_agregado[i] = list(max(list(dicionario_moda.items())))[0]
     return dicionario_agregado
         
-def calcula_mediana(dicionario_agregado:dict):
+def calcula_mediana(dicionario_agregado:dict) -> dict:
+    '''
+    Calcula a mediana de cada valor agregado 
+    '''
     for chave in dicionario_agregado:
         if not isinstance(dicionario_agregado[chave],list):
             dicionario_agregado[chave] = list([dicionario_agregado[chave]])
