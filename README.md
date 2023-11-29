@@ -1,5 +1,7 @@
 # Manipulacao de arquivos
  Fazendo requisições para uma API, Manipulando arquivos json, csv e realizando operações estatísticas e de manipulção de dados.
+## Objetivo principal
+- Criar um sistema que busca dados em uma API e realiza algumas operações incluindo o uso de diversas técnicas de python
 ## Guia do projeto
 - 'main.py' contém as funcionalidades principais 
 - 'Criando json.py' contém o arquivo que cria a base de dados que alimenta o Json-server
