@@ -3,7 +3,6 @@ import json
 def Buscar_dados_API():
     '''
     Busca os dados em uma API json server
-    
     '''
     dicionario = { 
                 "ID_Cliente":[],

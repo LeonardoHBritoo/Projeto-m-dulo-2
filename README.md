@@ -1,5 +1,7 @@
 # Manipulacao de arquivos
- Fazendo requisições para uma API, Manipulando arquivos json, csv e realizando operações estatísticas e de manipulção de dados.
+ Fazendo requisições para uma API, Manipulando arquivos json, csv e realizando operações estatísticas e de manipulção de dados. 
+
+ - Projeto realizado para entrega e valiação no Segundo módulo do curso de análise de dados da Ada
 ## Objetivo principal
 - Criar um sistema que busca dados em uma API e realiza algumas operações incluindo o uso de diversas técnicas de python
 ## Guia do projeto
